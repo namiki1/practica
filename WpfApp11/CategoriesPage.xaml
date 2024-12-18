@@ -1,0 +1,28 @@
+﻿<Page x:Class="WpfApp11.CategoriesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Категории">
+    <Grid Margin="10" Background="LightBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Список категорий" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+
+        <ListView x:Name="CategoriesListView" Grid.Row="1" Margin="0,0,0,10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding id}" Width="50"/>
+                    <GridViewColumn Header="Название категории" DisplayMemberBinding="{Binding category_name}" Width="200"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
+            <Button Content="Добавить" Width="100" Margin="5" Click="AddCategory_Click"/>
+            <Button Content="Редактировать" Width="100" Margin="5" Click="EditCategory_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>
