@@ -9,7 +9,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Список категорий" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+        <TextBlock Text="Список категорий" FontSize="15" FontWeight="Bold" Margin="0,0,0,10"/>
 
         <ListView x:Name="CategoriesListView" Grid.Row="1" Margin="0,0,0,10">
             <ListView.View>

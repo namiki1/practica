@@ -14,6 +14,8 @@ namespace WpfApp11
     
     public partial class order
     {
+        internal DateTime payment_date;
+
         public int id { get; set; }
         public int product_id { get; set; }
         public int user_id { get; set; }

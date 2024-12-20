@@ -6,14 +6,14 @@ using System.Windows.Navigation;
 
 namespace WpfApp11
 {
-    /// <summary>
-    /// Логика взаимодействия для PaymentsPage.xaml
-    /// </summary>
     public partial class PaymentsPage : Page
     {
+        private practicaEntities _context;
+
         public PaymentsPage()
         {
             InitializeComponent();
+            _context = practicaEntities.GetContext();
             LoadPayments();
             LoadCategories();
         }
@@ -21,13 +21,13 @@ namespace WpfApp11
         // Метод для загрузки платежей в ListView
         private void LoadPayments()
         {
-            PaymentsListView.ItemsSource = practicaEntities.GetContext().orders.ToList();
+            PaymentsListView.ItemsSource = _context.orders.ToList();
         }
 
         // Метод для загрузки категорий в ComboBox
         private void LoadCategories()
         {
-            var categories = practicaEntities.GetContext().categs.ToList();
+            var categories = _context.categs.ToList();
             categories.Insert(0, new categ { id = 0, category_name = "Все категории" });
             CategoryFilterComboBox.ItemsSource = categories;
             CategoryFilterComboBox.SelectedIndex = 0;
@@ -36,7 +36,7 @@ namespace WpfApp11
         // Метод для применения фильтра
         private void ApplyFilter()
         {
-            var query = practicaEntities.GetContext().orders.AsQueryable();
+            var query = _context.orders.AsQueryable();
 
             // Фильтр по категории
             var selectedCategory = CategoryFilterComboBox.SelectedItem as categ;
@@ -101,9 +101,9 @@ namespace WpfApp11
                     try
                     {
                         // Удаляем платеж из контекста
-                        practicaEntities.GetContext().orders.Remove(selectedPayment);
+                        _context.orders.Remove(selectedPayment);
                         // Сохраняем изменения в базе данных
-                        practicaEntities.GetContext().SaveChanges();
+                        _context.SaveChanges();
                         MessageBox.Show("Платеж успешно удален!", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
                         // Обновляем список платежей
                         LoadPayments();
@@ -117,6 +117,21 @@ namespace WpfApp11
             else
             {
                 MessageBox.Show("Выберите платеж для удаления.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        // Обработчик события для кнопки "Отчет"
+        private void Report_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedPayment = PaymentsListView.SelectedItem as order;
+            if (selectedPayment != null)
+            {
+                // Переход на страницу "Отчет" с выбранным платежом
+                NavigationService.Navigate(new ReportPage(selectedPayment));
+            }
+            else
+            {
+                MessageBox.Show("Выберите платеж для формирования отчета.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

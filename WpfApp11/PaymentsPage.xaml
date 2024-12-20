@@ -9,14 +9,17 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Фильтр по категории и поиск -->
+        <!-- Фильтр по дате, категории и поиск -->
         <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+            <Label Content="Дата начала:" VerticalAlignment="Center"/>
+            <DatePicker x:Name="StartDatePicker" Width="150" Margin="5,0"/>
+            <Label Content="Дата окончания:" VerticalAlignment="Center"/>
+            <DatePicker x:Name="EndDatePicker" Width="150" Margin="5,0"/>
             <Label Content="Категория:" VerticalAlignment="Center"/>
             <ComboBox x:Name="CategoryFilterComboBox" Width="200" Margin="5,0"
                       DisplayMemberPath="category_name"
                       SelectedValuePath="id"
                       SelectionChanged="CategoryFilterComboBox_SelectionChanged"/>
-
             <Label Content="Поиск:" VerticalAlignment="Center"/>
             <TextBox x:Name="SearchTextBox" Width="300" Margin="10,0"
                      TextChanged="SearchTextBox_TextChanged"/>
@@ -41,7 +44,8 @@
             <Button Content="Добавить" Width="100" Margin="5" Click="AddPayment_Click"/>
             <Button Content="Редактировать" Width="100" Margin="5" Click="EditPayment_Click"/>
             <Button Content="Удалить" Width="100" Margin="5" Click="DeletePayment_Click"/>
-            <!-- Добавленная кнопка -->
+            <Button Content="Отчет" Width="100" Click="Report_Click"/>
+
         </StackPanel>
     </Grid>
 </Page>
